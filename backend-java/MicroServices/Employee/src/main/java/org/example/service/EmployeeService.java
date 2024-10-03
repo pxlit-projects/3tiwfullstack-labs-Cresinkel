@@ -8,6 +8,9 @@ import org.example.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -40,5 +43,28 @@ public class EmployeeService implements IEmployeeService {
                 .name(employeeRequest.getName())
                 .build();
         employeeRepository.save(newEmployee);
+    }
+
+    @Override
+    public EmployeeResponse getEmployeeById(Long id) throws Exception {
+        Optional<Employee> optionalEmployee = employeeRepository.findById(id);
+        if (optionalEmployee.isEmpty()) {
+            throw new Exception("Employee not found with id: " + id);
+        }
+        return mapToEmployeeResponse(optionalEmployee.get());
+    }
+
+    @Override
+    public List<EmployeeResponse> getAllEmployeesByDepartmentId(Long id) {
+        List<Employee> employees = employeeRepository.findAll();
+        employees = employees.stream().filter(e -> Objects.equals(e.getDepartementId(), id)).collect(Collectors.toList());
+        return employees.stream().map(this::mapToEmployeeResponse).toList();
+    }
+
+    @Override
+    public List<EmployeeResponse> getAllEmployeesByOrganizationId(Long id) {
+        List<Employee> employees = employeeRepository.findAll();
+        employees = employees.stream().filter(e -> Objects.equals(e.getOrganizationId(), id)).collect(Collectors.toList());
+        return employees.stream().map(this::mapToEmployeeResponse).toList();
     }
 }

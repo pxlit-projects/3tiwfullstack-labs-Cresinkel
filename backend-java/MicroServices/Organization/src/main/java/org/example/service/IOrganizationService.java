@@ -9,4 +9,12 @@ public interface IOrganizationService {
     List<OrganizationResponse> getAllOrganizations();
 
     void addOrganization(OrganizationRequest organizationRequest);
+
+    OrganizationResponse getOrganizationById(Long organizationId) throws Exception;
+
+    OrganizationResponse getOrganizationByIdWithDepartments(Long organizationId) throws Exception;
+
+    OrganizationResponse getOrganizationByIdWithDepartmentsAndEmployees(Long organizationId) throws Exception;
+
+    OrganizationResponse getOrganizationByIdWithEmployees(Long organizationId) throws Exception;
 }

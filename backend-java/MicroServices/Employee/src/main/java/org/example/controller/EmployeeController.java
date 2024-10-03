@@ -24,8 +24,22 @@ public class EmployeeController {
     public void addEmployee(@RequestBody EmployeeRequest employeeRequest) {
          employeeService.addEmployee(employeeRequest);
     }
-//    @GetMapping("/{id}") findById
-//    @GetMapping("/department/{departmentId}") findByDepartment
-//    @GetMapping("/organization/{organizationId}") findByOrganization
 
+    @GetMapping("/{id}")
+    public ResponseEntity getEmployeeById(@PathVariable String id) throws Exception {
+        Long employeeId = Long.parseLong(id);
+        return new ResponseEntity(employeeService.getEmployeeById(employeeId), HttpStatus.OK);
+    }
+
+    @GetMapping("/department/{departmentId}")
+    public ResponseEntity findByDepartment(@PathVariable String departmentId) {
+        Long id = Long.parseLong(departmentId);
+        return new ResponseEntity(employeeService.getAllEmployeesByDepartmentId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/organization/{organizationId}")
+    public ResponseEntity findByOrganization(@PathVariable String organizationId) {
+        Long id = Long.parseLong(organizationId);
+        return new ResponseEntity(employeeService.getAllEmployeesByOrganizationId(id), HttpStatus.OK);
+    }
 }

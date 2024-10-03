@@ -18,18 +18,31 @@ public class DepartmentController
     private final IDepartmentService departmentService;
 
     @GetMapping
-    public ResponseEntity getEmployees() {
+    public ResponseEntity getDepartments() {
         return new ResponseEntity(departmentService.getAllDepartments(), HttpStatus.OK);
     }
 
     @PostMapping(produces = "application/json")
     @ResponseStatus(HttpStatus.CREATED)
-    public void addEmployee(@RequestBody DepartmentRequest departmentRequest) {
+    public void addDepartment(@RequestBody DepartmentRequest departmentRequest) {
          departmentService.addDepartment(departmentRequest);
     }
 
-//    @GetMapping("/{id}") findById
-//    @GetMapping("/department/{departmentId}") findByDepartment
-//    @GetMapping("/organization/{organizationId}") findByOrganization
+    @GetMapping("/{id}")
+    public ResponseEntity getDepartmentById(@PathVariable String id) throws Exception {
+        Long departmentId = Long.parseLong(id);
+        return new ResponseEntity(departmentService.getDepartmentById(departmentId), HttpStatus.OK);
+    }
 
+    @GetMapping("/organization/{organizationId}")
+    public ResponseEntity findByOrganization(@PathVariable String organizationId) {
+        Long id = Long.parseLong(organizationId);
+        return new ResponseEntity(departmentService.getAllDepartmentsByOrganizationId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/organization/{organizationId}/with-employees")
+    public ResponseEntity findByOrganizationWithEmployees(@PathVariable String organizationId) {
+        Long id = Long.parseLong(organizationId);
+        return new ResponseEntity(departmentService.getAllDepartmentsByOrganizationIdWithEmployees(id), HttpStatus.OK);
+    }
 }

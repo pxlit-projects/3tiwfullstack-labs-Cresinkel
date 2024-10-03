@@ -9,4 +9,10 @@ public interface IDepartmentService {
     List<DepartmentResponse> getAllDepartments();
 
     void addDepartment(DepartmentRequest departmentRequest);
+
+    DepartmentResponse getDepartmentById(Long departmentId) throws Exception;
+
+    List<DepartmentResponse> getAllDepartmentsByOrganizationId(Long id);
+
+    List<DepartmentResponse> getAllDepartmentsByOrganizationIdWithEmployees(Long id);
 }
