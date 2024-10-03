@@ -18,7 +18,7 @@ public class EmployeeService implements IEmployeeService {
     @Override
     public List<EmployeeResponse> getAllEmployees() {
         List<Employee> employees = employeeRepository.findAll();
-        return employees.stream().map(employee -> mapToEmployeeResponse(employee)).toList();
+        return employees.stream().map(this::mapToEmployeeResponse).toList();
     }
 
     private EmployeeResponse mapToEmployeeResponse(Employee employee) {
@@ -26,6 +26,9 @@ public class EmployeeService implements IEmployeeService {
                 .age(employee.getAge())
                 .name(employee.getName())
                 .position(employee.getPosition())
+                .organizationId(employee.getOrganizationId())
+                .employeeId(employee.getId())
+                .departementId(employee.getDepartementId())
                 .build();
     }
 
@@ -33,10 +36,8 @@ public class EmployeeService implements IEmployeeService {
     public void addEmployee(EmployeeRequest employeeRequest) {
         Employee newEmployee = Employee.builder()
                 .age(employeeRequest.getAge())
-                //.departementId(employeeRequest.getDepartementId())
                 .position(employeeRequest.getPosition())
                 .name(employeeRequest.getName())
-                //.organizationId(employeeRequest.getOrganizationId())
                 .build();
         employeeRepository.save(newEmployee);
     }

@@ -9,8 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeRequest {
-    private String name;
-    private int age;
-    private String position;
+public class NotificationRequest {
+    private String from;
+    private String to;
+    private String subject;
+    private String message;
 }

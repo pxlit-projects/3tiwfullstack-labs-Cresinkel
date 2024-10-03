@@ -1,0 +1,23 @@
+package org.example.domain.dto;
+
+import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.example.domain.Department;
+import org.example.domain.Employee;
+
+import java.util.List;
+
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class OrganizationResponse {
+    private Long id;
+    private String name;
+    private String address;
+    private List<Employee> employees;
+    private List<Department> departments;
+}

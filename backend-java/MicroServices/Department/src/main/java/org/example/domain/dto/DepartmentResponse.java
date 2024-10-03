@@ -4,13 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.example.domain.Employee;
+
+import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeRequest {
+public class DepartmentResponse {
+    private Long departmentId;
+    private Long organizationId;
     private String name;
-    private int age;
+    private List<Employee> employees;
     private String position;
 }
